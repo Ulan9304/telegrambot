@@ -41,28 +41,28 @@ def main():
     resp_dict = json.loads(currencies)
     rates = resp_dict['rates']
     usd = []
+    kgs = []
     for key, value in rates.items():
         if key == 'USD':
             usd.append(key)
             usd.append(value)
     print (rates['USD'])
-    print("test",usd)
-
+    print("test",usd, kgs)
+    print(main())
+# print("gd")
 
 # Сообщения Бота при вводе данных
 
 @bot.message_handler(commands=['start'])
 def handle_start(message):
-    user_markup = telebot.types.ReplyKeyboardMarkup()
-    user_markup.row('/USD to SOM')
+    user_markup = telebot.types.ReplyKeyboardMarkup(True, False)
+    user_markup.row('/KGS to USD', '/USD to KGS')
     bot.send_message(message.from_user.id, 'Добро пожаловать', reply_markup=user_markup)
-
 
 @bot.message_handler(commands=['stop'])
 def handle_start(message):
     hide_mark_up = telebot.types.ReplyKeyboardMarkupHide()
     bot.send_message(message.from_user.id, ",,", reply_markup=hide_mark_up)
-
 
 @bot.message_handler(content_types=['help'])
 def handle_text(message):
@@ -74,7 +74,7 @@ def handle_text(message):
 @bot.message_handler(content_types=['text'])
 def handle_text(message):
     answer = "Converter"
-    if message.text == "USD SOM":
+    if message.text == "/USD to SOM":
         log(message, answer)
         bot.send_message(message.chat.id,"68")
     elif message.text == str():
